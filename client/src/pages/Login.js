@@ -37,16 +37,18 @@ function Login() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="email"
                 />
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder="password"
                 />
                 <input type="submit" />
             </form>
 
-            <hr/>
+            <hr />
             <Link to="/register">Register here</Link>
         </div>
     );

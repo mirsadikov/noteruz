@@ -99,11 +99,13 @@ function Home() {
                             type="text"
                             value={noteTitle}
                             onChange={(e) => setNoteTitle(e.target.value)}
+                            placeholder="title"
                         />
                         <input
                             type="text"
                             value={noteDesc}
                             onChange={(e) => setNoteDesc(e.target.value)}
+                            placeholder="desctiption"
                         />
                         <input type="submit" />
                     </form>
