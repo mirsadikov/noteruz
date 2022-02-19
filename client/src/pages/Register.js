@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { registerUser } from "../actions/userActions";
@@ -45,6 +45,8 @@ function Register() {
                 />
                 <input type="submit" />
             </form>
+            <hr />
+            <Link to="/login">Login here</Link>
         </div>
     );
 }

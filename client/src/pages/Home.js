@@ -91,6 +91,10 @@ function Home() {
                     <Loader />
                 ) : (
                     <form onSubmit={createNoteHandler}>
+                        <div>
+                            <b>Create note</b>
+                        </div>
+
                         <input
                             type="text"
                             value={noteTitle}
