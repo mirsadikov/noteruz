@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Auth from "../components/Auth";
 import { createNote, getUserNotes, noteDelete } from "../actions/noteActions";
 import Loader from "../components/Loader";
+import { TelegramFill, TrashCan, Plus, SignOut, Cross } from "akar-icons";
 
 function Home() {
     const { profile, error, ok } = useSelector((state) => state.user);
@@ -17,6 +18,8 @@ function Home() {
 
     const [telegram, setTelegram] = useState("");
     const [notes, setnotes] = useState([]);
+    const [deleteOn, setDeleteOn] = useState(false);
+    const [createOn, setCreateOn] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -56,6 +59,7 @@ function Home() {
 
     const createNoteHandler = (e) => {
         e.preventDefault();
+        setCreateOn(false);
         dispatch(createNote(noteTitle, noteDesc));
         setNoteTitle("");
         setNoteDesc("");
@@ -70,29 +74,39 @@ function Home() {
 
     return (
         <>
-            <div>
-                {!profile && <Auth />}
-                {/* {loading && <p>loading...</p>} */}
-                {error && <p>{error}</p>}
-                <h1>
+            <div className={createOn ? "flex container" : "container"}>
+                <div className="box">
+                    {!profile && <Auth />}
+                    {/* {loading && <p>loading...</p>} */}
+                    {error && <p>{error}</p>}
                     {!telegram && (
-                        <button onClick={connectBotHandler}>Connect Bot</button>
+                        <button className="btn" onClick={connectBotHandler}>
+                            <TelegramFill strokeWidth={2} size={20} /> Connect
+                            Telegram bot
+                        </button>
                     )}
-                </h1>
-                <ul onClick={handleDelete}>
-                    {notes &&
-                        notes.map((note) => (
-                            <li key={note._id} data-id={note._id}>
-                                {note.title} - {note.desc} - <button>❌</button>
-                            </li>
-                        ))}
-                </ul>
+                    <ul
+                        className={`list ${deleteOn ? "" : "hideDeleteBtn"}`}
+                        onClick={handleDelete}
+                    >
+                        {notes &&
+                            notes.map((note) => (
+                                <li key={note._id} data-id={note._id}>
+                                    <h3 className="noteTitle">{note.title}</h3>
+                                    <p className="noteDesc">{note.desc}</p>
+                                    <button className="inlineBtn">
+                                        <Cross strokeWidth={2} size={15} />
+                                    </button>
+                                </li>
+                            ))}
+                    </ul>
+                </div>
                 {noteLoading ? (
                     <Loader />
                 ) : (
-                    <form onSubmit={createNoteHandler}>
+                    <form className="form box" onSubmit={createNoteHandler}>
                         <div>
-                            <b>Create note</b>
+                            <b className="form-label title2">Create note</b>
                         </div>
 
                         <input
@@ -100,22 +114,37 @@ function Home() {
                             value={noteTitle}
                             onChange={(e) => setNoteTitle(e.target.value)}
                             placeholder="title"
+                            required
                         />
                         <input
                             type="text"
                             value={noteDesc}
                             onChange={(e) => setNoteDesc(e.target.value)}
                             placeholder="desctiption"
+                            required
                         />
-                        <input type="submit" />
+                        <input type="submit" value="Create" />
                     </form>
                 )}
             </div>
-            {profile && (
-                <div>
-                    <button onClick={handleLogOut}>Log out</button>
-                </div>
-            )}
+
+            <div className={profile ? "bar" : "bar hiddenbar"}>
+                <button
+                    className={`${deleteOn ? "red" : ""}`}
+                    onClick={() => setDeleteOn((s) => !s)}
+                >
+                    <TrashCan strokeWidth={2} size={25} />
+                </button>
+                <button
+                    onClick={() => setCreateOn((s) => !s)}
+                    className="btnPlus"
+                >
+                    <Plus strokeWidth={2} size={35} />
+                </button>
+                <button onClick={handleLogOut}>
+                    <SignOut strokeWidth={2} size={25} />
+                </button>
+            </div>
         </>
     );
 }

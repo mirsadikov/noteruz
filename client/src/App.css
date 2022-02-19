@@ -1,3 +1,227 @@
+:root {
+    --margin: 1.6rem;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
 html {
-    font-family: sans-serif;
+    font-family: "Rubik", sans-serif;
+    font-size: 56.25%;
+}
+
+.App {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--margin);
+    margin-bottom: 10rem;
+}
+
+.box {
+    background-color: #e7f7ff;
+    padding: 1rem;
+    font-size: 1.6rem;
+    border-radius: 1.6rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: var(--margin);
+}
+
+.form {
+    padding: 2rem;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 1.6rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid #e7e7e7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff6b;
+}
+
+.spinner img {
+    animation: spin 1s linear infinite;
+}
+
+.form input {
+    font-family: "Rubik", sans-serif;
+    display: block;
+    margin-top: var(--margin);
+    width: 100%;
+    border: 1px solid #d6f1ff;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+}
+
+.form input[type="submit"] {
+    font-family: "Rubik", sans-serif;
+    background-color: #a1e0ff;
+    border: none;
+    outline: none;
+    color: #0044ff;
+    font-size: 2.2rem;
+}
+
+.btn {
+    font-family: "Rubik", sans-serif;
+    background-color: #a1e0ff;
+    border: none;
+    outline: none;
+    color: #0044ff;
+    font-size: 2.2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 0.6rem;
+    width: 100%;
+    align-items: center;
+}
+
+.form input:focus {
+    outline: 1px solid #a1e0ff;
+}
+
+.form-label {
+    margin-bottom: 3rem;
+}
+
+.link {
+    text-decoration: none;
+    color: #222;
+    font-size: 1.8rem;
+}
+
+.reference {
+    margin: 5rem 0 1rem;
+    border-bottom: 1px solid #666;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.error {
+    color: #ff5e5e;
+}
+
+.bar {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 8rem;
+    border-top: 1px solid #e7e7e7;
+    transition: 0.3s ease;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    background-color: #fff7;
+}
+
+.bar button {
+    border: 1px solid #d6f1ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e7f7ff;
+    font-size: 30rem;
+    color: #444;
+    padding: 1rem;
+    width: 30%;
+    border-radius: 1rem;
+}
+
+.btnPlus {
+    background-color: #a1e0ff !important;
+    margin: 0 2rem;
+    border-radius: 50% !important;
+    height: 10rem !important;
+    width: 10rem !important;
+    z-index: 2;
+}
+
+.hiddenbar {
+    transform: translateY(120%);
+}
+
+.list {
+    list-style: none;
+    padding: 2rem 0 0;
+}
+
+.list li {
+    border-radius: 1rem;
+    border: 1px solid #a1e0ff;
+    padding: 0.9rem 0.8rem;
+    position: relative;
+}
+
+.list li:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.inlineBtn {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff5e5e;
+    padding: 5px;
+    color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(40%, -40%);
+}
+
+.hideDeleteBtn .inlineBtn {
+    display: none;
+}
+
+.red {
+    background-color: #ff5e5e !important;
+    color: #fff !important;
+}
+
+.title2 {
+    font-size: 2rem;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.container > .box {
+    min-width: 100% !important;
+    transition: all 0.3s ease;
+}
+.container > .box:not(:last-child) {
+    margin-right: 3rem;
+}
+
+.flex > * {
+    transform: translateX(-100vw);
 }

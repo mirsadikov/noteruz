@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ArrowRight } from "akar-icons";
 
 import { loginUser } from "../actions/userActions";
 import Auth from "../components/Auth";
@@ -27,11 +28,11 @@ function Login() {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="box form">
+            <h1 className="form-label">Login</h1>
             {!logging && <Auth />}
             {logging && loading && <Loader />}
-            {loginError && <p>{loginError}</p>}
+            {loginError && <p className="error">{loginError}</p>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
@@ -48,8 +49,9 @@ function Login() {
                 <input type="submit" />
             </form>
 
-            <hr />
-            <Link to="/register">Register here</Link>
+            <Link to="/register" className="link reference">
+                Register here <ArrowRight strokeWidth={2} size={12} />
+            </Link>
         </div>
     );
 }

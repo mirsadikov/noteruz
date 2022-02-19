@@ -113,6 +113,7 @@ class Conterollers {
                     reply_markup: {
                         keyboard: [["Cancel"]],
                         resize_keyboard: true,
+                        remove_keyboard: true,
                     },
                 });
             } else if (msg.text == "Cancel") {
@@ -147,10 +148,17 @@ class Conterollers {
 
                     bot.sendMessage(chat_id, "<b>Send note description:</b>", {
                         parse_mode: "HTML",
-                        reply_markup: {
-                            keyboard: [["Cancel"]],
-                            resize_keyboard: true,
-                        },
+                        // reply_markup: {
+                        //     keyboard: [
+                        //         [
+                        //             {
+                        //                 text: "Cancel",
+                        //                 remove_keyboard: true,
+                        //             },
+                        //         ],
+                        //     ],
+                        //     resize_keyboard: true,
+                        // },
                     });
                 } else if (note.stage == 1) {
                     note.desc = msg.text;

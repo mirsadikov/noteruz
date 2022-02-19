@@ -1,8 +1,8 @@
 function Header() {
     return (
-        <div>
-            <h2>Noter</h2>
-        </div>
+        <header className="box">
+            <h1>Noter //</h1>
+        </header>
     );
 }
 
