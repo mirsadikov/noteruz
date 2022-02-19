@@ -7,7 +7,7 @@ import { createNote, getUserNotes, noteDelete } from "../actions/noteActions";
 import Loader from "../components/Loader";
 
 function Home() {
-    const { profile, error, ok, loading } = useSelector((state) => state.user);
+    const { profile, error, ok } = useSelector((state) => state.user);
     const {
         notes: noteList,
         error: notesError,
@@ -62,7 +62,7 @@ function Home() {
     };
 
     const handleDelete = (e) => {
-        if (e.target != e.currentTarget) {
+        if (e.target !== e.currentTarget) {
             const noteToDelete = e.target.closest("li");
             dispatch(noteDelete(noteToDelete.dataset.id));
         }

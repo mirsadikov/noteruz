@@ -15,14 +15,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 // paths
 app.use("/api/user", userRoute);
 app.use("/api/note", noteRoute);
-app.get("/", (req, res) => {
-    res.send("API running...");
-    // res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+app.get("*", (req, res) => {
+    // res.send("API running...");
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 app.use(notFound);
