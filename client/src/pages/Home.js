@@ -14,6 +14,7 @@ function Home() {
         error: notesError,
         ok: notesOk,
         noteLoading,
+        loading,
     } = useSelector((state) => state.notes);
 
     const [telegram, setTelegram] = useState("");
@@ -82,7 +83,7 @@ function Home() {
             <div className={createOn ? "flex container" : "container"}>
                 <div className="box">
                     {!profile && <Auth />}
-                    {/* {loading && <p>loading...</p>} */}
+                    {loading && <Loader />}
                     {error && <p>{error}</p>}
                     {!telegram && (
                         <button className="btn" onClick={connectBotHandler}>

@@ -12,7 +12,11 @@ import {
 export const userNoteReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_NOTES_REQUEST:
-            return { ...state, loading: true, noteLoading: true };
+            return {
+                ...state,
+                loading: state.noteLoading ? false : true,
+                noteLoading: false,
+            };
         case GET_NOTES_SUCCESS:
             return { ...action.payload, loading: false, ok: true };
         case GET_NOTES_ERROR:
