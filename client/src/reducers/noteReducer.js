@@ -12,7 +12,7 @@ import {
 export const userNoteReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_NOTES_REQUEST:
-            return { ...state, loading: true };
+            return { ...state, loading: true, noteLoading: true };
         case GET_NOTES_SUCCESS:
             return { ...action.payload, loading: false, ok: true };
         case GET_NOTES_ERROR:
@@ -22,6 +22,7 @@ export const userNoteReducer = (state = {}, action) => {
         case DELETE_NOTE_REQUEST: {
             return {
                 ...state,
+                noteLoading: true,
                 notes: state.notes.filter(
                     (note) => note._id !== action.payload
                 ),
