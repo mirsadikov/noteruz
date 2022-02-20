@@ -64,7 +64,7 @@ const loginUser = asyncHandler(async function (req, res) {
 });
 
 const getUserNotes = asyncHandler(async function (req, res) {
-    const userNotes = await Note.find({ owner: req.user._id });
+    const userNotes = await Note.find({ owner: req.user._id, stage: null });
 
     res.json({
         notes: userNotes,
