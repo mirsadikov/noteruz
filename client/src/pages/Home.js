@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../actions/userActions";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,7 @@ function Home() {
     const [createOn, setCreateOn] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const ref = useRef();
 
     const [noteTitle, setNoteTitle] = useState("");
     const [noteDesc, setNoteDesc] = useState("");
@@ -45,16 +46,17 @@ function Home() {
     };
 
     const connectBotHandler = async (e) => {
+        ref.current.classList.toggle("hidden");
         const res = await fetch("/api/user/linktg", {
             method: "POST",
         });
         const link = await res.json();
-        console.log(link);
         if (!res.ok || !link.ok) alert("Failed!");
         else {
             window.open(link.url, "_blank");
             alert("Please reload after starting bot!");
         }
+        ref.current.classList.toggle("hidden");
     };
 
     const createNoteHandler = (e) => {
@@ -66,7 +68,8 @@ function Home() {
     };
 
     const handleDelete = (e) => {
-        if (e.target !== e.currentTarget) {
+        const deleteBtn = e.target.closest("button.inlineBtn");
+        if (deleteBtn) {
             const noteToDelete = e.target.closest("li");
             dispatch(noteDelete(noteToDelete.dataset.id));
         }
@@ -85,11 +88,14 @@ function Home() {
                             Telegram bot
                         </button>
                     )}
+                    <div className="hidden" ref={ref}>
+                        <Loader />
+                    </div>
                     <ul
                         className={`list ${deleteOn ? "" : "hideDeleteBtn"}`}
                         onClick={handleDelete}
                     >
-                        {notes &&
+                        {notes.length > 0 ? (
                             notes.map((note) => (
                                 <li key={note._id} data-id={note._id}>
                                     <h3 className="noteTitle">{note.title}</h3>
@@ -98,7 +104,10 @@ function Home() {
                                         <Cross strokeWidth={2} size={15} />
                                     </button>
                                 </li>
-                            ))}
+                            ))
+                        ) : (
+                            <li>You don't have any notes!</li>
+                        )}
                     </ul>
                 </div>
                 {noteLoading ? (

@@ -2,7 +2,7 @@ import {
     CREATE_NOTE_ERROR,
     CREATE_NOTE_REQUEST,
     CREATE_NOTE_SUCCESS,
-    DELETE_NOTE_SUCCESS,
+    DELETE_NOTE_REQUEST,
     GET_NOTES_ERROR,
     GET_NOTES_REQUEST,
     GET_NOTES_SUCCESS,
@@ -19,6 +19,14 @@ export const userNoteReducer = (state = {}, action) => {
             return { ...state, loading: false, error: action.payload };
         case CREATE_NOTE_REQUEST:
             return { ...state, noteLoading: true };
+        case DELETE_NOTE_REQUEST: {
+            return {
+                ...state,
+                notes: state.notes.filter(
+                    (note) => note._id !== action.payload
+                ),
+            };
+        }
         case CREATE_NOTE_SUCCESS:
             return {
                 noteLoading: false,
@@ -27,10 +35,6 @@ export const userNoteReducer = (state = {}, action) => {
             };
         case CREATE_NOTE_ERROR:
             return { ...state, noteLoading: false, error: action.payload };
-        case DELETE_NOTE_SUCCESS:
-            return {
-                notes: [...state.notes, action.payload.note],
-            };
         case USER_LOG_OUT:
             return {};
         default:

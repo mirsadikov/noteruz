@@ -47,8 +47,16 @@ class Conterollers {
             const [_id, code] = msg.text.split(" ")[1].split("_");
 
             const foundUser = await User.findOne({ _id });
+            const userAlreadyLinked = await User.findOne({
+                telegramId: chat_id,
+            });
 
-            if (!foundUser) {
+            if (userAlreadyLinked) {
+                bot.sendMessage(
+                    chat_id,
+                    "You have already linked another account!"
+                );
+            } else if (!foundUser) {
                 bot.sendMessage(chat_id, "User not found!");
             } else {
                 if (

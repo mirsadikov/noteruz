@@ -2,6 +2,7 @@ import {
     CREATE_NOTE_ERROR,
     CREATE_NOTE_REQUEST,
     CREATE_NOTE_SUCCESS,
+    DELETE_NOTE_REQUEST,
     GET_NOTES_ERROR,
     GET_NOTES_REQUEST,
     GET_NOTES_SUCCESS,
@@ -58,6 +59,10 @@ export const createNote = (title, desc) => async (dispatch, getState) => {
 };
 
 export const noteDelete = (id) => async (dispatch) => {
+    dispatch({
+        type: DELETE_NOTE_REQUEST,
+        payload: id,
+    });
     const res = await fetch(`/api/note/delete/${id}`, {
         method: "DELETE",
     });
