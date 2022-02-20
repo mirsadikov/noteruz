@@ -22,7 +22,7 @@ function Home() {
     const [createOn, setCreateOn] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const ref = useRef();
+    const botLoader = useRef();
 
     const [noteTitle, setNoteTitle] = useState("");
     const [noteDesc, setNoteDesc] = useState("");
@@ -46,7 +46,7 @@ function Home() {
     };
 
     const connectBotHandler = async (e) => {
-        ref.current.classList.toggle("hidden");
+        botLoader.current.classList.toggle("hidden");
         const res = await fetch("/api/user/linktg", {
             method: "POST",
         });
@@ -56,7 +56,7 @@ function Home() {
             window.open(link.url, "_blank");
             alert("Please reload after starting bot!");
         }
-        ref.current.classList.toggle("hidden");
+        botLoader.current.classList.toggle("hidden");
     };
 
     const createNoteHandler = (e) => {
@@ -88,7 +88,7 @@ function Home() {
                             Telegram bot
                         </button>
                     )}
-                    <div className="hidden" ref={ref}>
+                    <div className="hidden" ref={botLoader}>
                         <Loader />
                     </div>
                     <ul
@@ -125,8 +125,9 @@ function Home() {
                             placeholder="title"
                             required
                         />
-                        <input
+                        <textarea
                             type="text"
+                            rows={8}
                             value={noteDesc}
                             onChange={(e) => setNoteDesc(e.target.value)}
                             placeholder="desctiption"
@@ -145,7 +146,10 @@ function Home() {
                     <TrashCan strokeWidth={2} size={25} />
                 </button>
                 <button
-                    onClick={() => setCreateOn((s) => !s)}
+                    onClick={(e) => {
+                        e.currentTarget.classList.toggle("rotate45");
+                        setCreateOn((s) => !s);
+                    }}
                     className="btnPlus"
                 >
                     <Plus strokeWidth={2} size={35} />
