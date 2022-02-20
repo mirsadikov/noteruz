@@ -23,6 +23,7 @@ function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const botLoader = useRef();
+    const plusBtnRef = useRef();
 
     const [noteTitle, setNoteTitle] = useState("");
     const [noteDesc, setNoteDesc] = useState("");
@@ -61,6 +62,7 @@ function Home() {
 
     const createNoteHandler = (e) => {
         e.preventDefault();
+        plusBtnRef.current.classList.toggle("rotate45");
         setCreateOn(false);
         dispatch(createNote(noteTitle, noteDesc));
         setNoteTitle("");
@@ -150,6 +152,7 @@ function Home() {
                         e.currentTarget.classList.toggle("rotate45");
                         setCreateOn((s) => !s);
                     }}
+                    ref={plusBtnRef}
                     className="btnPlus"
                 >
                     <Plus strokeWidth={2} size={35} />
